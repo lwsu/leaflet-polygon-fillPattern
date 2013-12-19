@@ -3,6 +3,7 @@ leaflet-polygon-fillPattern
 
 Extend the Polygon Object to fill SVG Path element with an image pattern.
 
+Check out the [demo](http://lnaweisu.github.io/leaflet-polygon-fillPattern/example/).
 
 ### Usage example
 
