@@ -19,5 +19,5 @@ var poly1 = [
     [24.5, 121.9],
     [24, 121.9]
 ];
-L.polygon(poly1, {fill:'url(image.gif)'}).addTo(map);
+L.polygon(poly1, {fillImage:'url(image.gif)'}).addTo(map);
 ```

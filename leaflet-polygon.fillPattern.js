@@ -37,20 +37,16 @@ if (L.Browser.svg) {
                 path.setAttribute('stroke', 'none');
             }
 
-            if (options.fill) {
-                if (typeof(options.fill) == "string" &&
-                        options.fill.match(/^url\(/)) {
-                    // here what we add
-                    this.__fillPattern(layer);
-                }
-                else {
-                    path.setAttribute('fill', options.fillColor || options.color);
-                }
-                path.setAttribute('fill-opacity', options.fillOpacity);
-                path.setAttribute('fill-rule', options.fillRule || 'evenodd');
-            } else {
-                path.setAttribute('fill', 'none');
+            if (options.fillImage && typeof(options.fillImage) == "string" &&
+                    options.fillImage.match(/^url\(/)) {
+                // here what we add
+                this.__fillPattern(layer);
             }
+            else {
+                path.setAttribute('fill', options.fillColor || options.color);
+            }
+            path.setAttribute('fill-opacity', options.fillOpacity);
+            path.setAttribute('fill-rule', options.fillRule || 'evenodd');
         },
 
         __fillPattern: function(layer) {
@@ -61,7 +57,7 @@ if (L.Browser.svg) {
                 this._defs = L.SVG.create('defs');
                 this._container.appendChild(this._defs);
             }
-            var _img_url = options.fill.substring(4, options.fill.length-1);
+            var _img_url = options.fillImage.substring(4, options.fillImage.length-1);
             var _ref_id = _img_url + (Math.random() * Math.pow(10, 17) + Math.random() * Math.pow(10, 17));
             _ref_id += new Date().getUTCMilliseconds();
             var _p = document.getElementById(_ref_id);
