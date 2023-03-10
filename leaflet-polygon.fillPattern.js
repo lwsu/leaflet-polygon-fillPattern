@@ -62,7 +62,7 @@ if (L.Browser.svg) {
                 this._container.appendChild(this._defs);
             }
             var _img_url = options.fill.substring(4, options.fill.length-1);
-            var _ref_id = _img_url + (Math.random() * Math.pow(10, 17) + Math.random() * Math.pow(10, 17));
+            var _ref_id = (Math.random() * Math.pow(10, 17) + Math.random() * Math.pow(10, 17));
             _ref_id += new Date().getUTCMilliseconds();
             var _p = document.getElementById(_ref_id);
             if (!_p) {
@@ -89,7 +89,7 @@ if (L.Browser.svg) {
                 var _img = L.SVG.create('image');
                 _img.setAttribute('x', '0');
                 _img.setAttribute('y', '0');
-                _img.setAttributeNS('http://www.w3.org/1999/xlink', 'href', _img_url);
+                this.__convertImageToBase64(_img_url, _img, this.__setDataUrl);
                 _img.setAttribute('width', '24');
                 _img.setAttribute('height', '24');
                 _p.appendChild(_img);
@@ -102,6 +102,23 @@ if (L.Browser.svg) {
                 };
             }
             path.setAttribute('fill', "url(#"+_ref_id+")");
+        },
+        __convertImageToBase64: function(imgUrl, _img, callback) {
+          const image = new Image();
+          image.crossOrigin='anonymous';
+          image.onload = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.height = image.naturalHeight;
+            canvas.width = image.naturalWidth;
+            ctx.drawImage(image, 0, 0);
+            const dataUrl = canvas.toDataURL();
+            callback && callback(dataUrl, _img)
+          }
+          image.src = imgUrl;
+        },
+        __setDataUrl: function(dataUrl, _img) {
+            _img.setAttributeNS('http://www.w3.org/1999/xlink', 'href', dataUrl);
         }
     });
 }
